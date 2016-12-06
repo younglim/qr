@@ -6,9 +6,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="qrcode.js"></script>
+<script type="text/javascript" src="validurl.js"></script>
 </head>
-<body bgcolor="lightgray">
-<h3 style='font-family:Sans-Serif'>Large QR Generator</h3>
+<body style='background-color:lightgray; font-family:Sans-Serif'>
+<h3>Large QR Generator</h3>
+<input type="checkbox" id="safeurl" value="safeurl">Safe URL Check<br/>
+
 <textarea id="text" value="" style="width:80%;" rows="4"></textarea><br />
 
 <div id="qrcode" style="width:100px; height:100px; margin-top:15px;margin-left:10px"></div>
@@ -19,7 +22,6 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
 	height : 500
 });
 
-
 function makeCode () {		
 	var elText = document.getElementById("text");
 	
@@ -29,6 +31,11 @@ function makeCode () {
 		return;
 	}
 	
+	 if (document.getElementById('safeurl').checked && is_valid_url(elText.value)) {
+            	qrcode.makeCode("http://www.siteadvisor.com/sites/"+encodeURI(elText.value));
+		return;
+        }
+
 	qrcode.makeCode(elText.value);
 }
 
