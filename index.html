@@ -9,7 +9,7 @@
 </head>
 <body bgcolor="lightgray">
 <h3 style='font-family:Sans-Serif'>Large QR Generator</h3>
-<textarea id="text" value="" style="width:80%;" rows="4">Hello World</textarea><br />
+<textarea id="text" value="" style="width:80%;" rows="4"></textarea><br />
 
 <div id="qrcode" style="width:100px; height:100px; margin-top:15px;margin-left:10px"></div>
 
@@ -32,7 +32,6 @@ function makeCode () {
 	qrcode.makeCode(elText.value);
 }
 
-makeCode();
 
 $("#text").
 	on("blur", function () {
