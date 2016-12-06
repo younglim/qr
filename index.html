@@ -26,7 +26,9 @@ function makeCode () {
 	var elText = document.getElementById("text");
 	
 	if (!elText.value) {
-		alert("Input a text");
+		console.log("Input a text");
+		$("#qrcode img").removeAttr("src");
+		$("#qrcode img").removeAttr("alt");
 		elText.focus();
 		return;
 	}
@@ -49,5 +51,11 @@ $("#text").
 			makeCode();
 		}
 	});
+
+$('#safeurl').
+	on("change", function () {
+		makeCode();
+	});
+
 </script>
 </body>
