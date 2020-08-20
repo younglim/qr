@@ -9,8 +9,7 @@
 <script type="text/javascript" src="validurl.js"></script>
 </head>
 <body style='background-color:lightgray; font-family:Sans-Serif'>
-<h3>Large QR Generator</h3>
-<input type="checkbox" id="safeurl" value="safeurl" checked>Safe URL Check<br/>
+<h3>SupplyAlly QR Code Generator</h3>
 
 <textarea id="text" value="" style="width:80%;" rows="4"></textarea><br />
 
@@ -23,10 +22,14 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
 	height : 500
 });
 
-function makeCode () {		
-	var elText = document.getElementById("text");
-	
-	if (!elText.value) {
+var url_string = window.location.href
+var url = new URL(url_string);
+var c = url.searchParams.get("c");
+console.log(c);
+
+function makeCode(code) {		
+
+	if (!code) {
 		console.log("Input a text");
 		$("#qrcode img").removeAttr("src");
 		$("#qrcode img").removeAttr("alt");
@@ -34,12 +37,8 @@ function makeCode () {
 		return;
 	}
 	
-	 if (document.getElementById('safeurl').checked && is_valid_url(elText.value)) {
-            	qrcode.makeCode("http://www.siteadvisor.com/sites/"+encodeURI(elText.value));
-		return;
-        }
 
-	qrcode.makeCode(elText.value);
+	qrcode.makeCode(code);
 	$("#qrcode img").css("display","block");
 	$("#qrcode img").css("max-height",$(window).height()-180);
 	$("#qrcode img").css("max-width",$(window).width()-10);
@@ -50,7 +49,7 @@ function makeCode () {
 
 $("#text").
 	on("blur", function () {
-		makeCode();
+		makeCode(document.getElementById("text").value);
 	}).
 	on("keydown", function (e) {
 		if (e.keyCode == 13) {
@@ -58,10 +57,7 @@ $("#text").
 		}
 	});
 
-$('#safeurl').
-	on("change", function () {
-		makeCode();
-	});
+makeCode(c);
 
 </script>
 </body>
