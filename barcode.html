@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<title>Barcode Generator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="validurl.js"></script>
+<script type="text/javascript" src="JsBarcode.code39.min.js"></script>
+</head>
+<body style='background-color:lightgray; font-family:Sans-Serif'>
+<h3>SupplyAlly Barcode Generator</h3>
+
+<textarea id="text" value="" style="width:80%;" rows="4"></textarea><br />
+
+<svg id="barcode"></svg>
+
+<script type="text/javascript">
+
+var url_string = window.location.href
+var url = new URL(url_string);
+var c = url.searchParams.get("c");
+console.log(c);
+
+function makeCode(code) {		
+
+	if (!code) {
+		console.log("Input a text");
+		
+		elText.focus();
+		return;
+	}
+	
+
+	JsBarcode("#barcode", code);
+	
+}
+
+
+$("#text").
+	on("blur", function () {
+		makeCode(document.getElementById("text").value);
+	}).
+	on("keydown", function (e) {
+		if (e.keyCode == 13) {
+			makeCode();
+		}
+	});
+
+makeCode(c);
+
+</script>
+</body>
